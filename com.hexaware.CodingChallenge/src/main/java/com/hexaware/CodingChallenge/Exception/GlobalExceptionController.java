@@ -30,7 +30,7 @@ public class GlobalExceptionController {
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<errorDetails> handelallexceptions(Exception e,HttpServletRequest hr){
 		String path = hr.getRequestURI();
-		errorDetails error = new errorDetails(LocalDateTime.now(),e.getClass().getName()+":"+e.getMessage(),path,"Exception");
+		errorDetails error = new errorDetails(LocalDateTime.now(),e.getClass().getName()+":"+e.getMessage(),path,HttpStatus.INTERNAL_SERVER_ERROR.toString());
 		return new ResponseEntity<>(error,HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
