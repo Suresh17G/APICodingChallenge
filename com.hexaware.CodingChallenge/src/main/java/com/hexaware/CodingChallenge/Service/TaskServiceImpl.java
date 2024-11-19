@@ -25,6 +25,7 @@ public class TaskServiceImpl implements ITaskService {
 	public TaskDTO getTaskByID(int taskId) {
 		Task task=taskRepo.findById(taskId).orElse(null);
 		if(task!=null) {
+			
 			return modelMapper.map(task, TaskDTO.class);
 		}
 		return null;

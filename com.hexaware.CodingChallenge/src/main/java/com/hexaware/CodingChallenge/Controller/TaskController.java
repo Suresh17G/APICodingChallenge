@@ -34,6 +34,7 @@ public class TaskController {
 		
 		List<TaskDTO> task=service.getAllTasks();
 		if(task==null) {
+			
 			throw new TaskNotFoundException("No Tasks found!!");
 		}
 		return new ResponseEntity<>(task,HttpStatus.OK);
@@ -44,6 +45,7 @@ public class TaskController {
 		
 		TaskDTO task=service.getTaskByID(taskId);
 		if(task==null) {
+			
 			throw new TaskNotFoundException("Task does not exist!!");
 		}
 		return new ResponseEntity<>(task,HttpStatus.OK);

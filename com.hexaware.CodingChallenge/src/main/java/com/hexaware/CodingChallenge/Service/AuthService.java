@@ -39,6 +39,7 @@ public class AuthService {
 	@PostConstruct
 	public void init() {
 		if (userRepo.findByRole(Role.ADMIN) == null) {
+			
 			Users admin = new Users();
 			admin.setUsername("admin");
 			admin.setPassword(passwordEncoder.encode("Admin@123")); // hashed password
