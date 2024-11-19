@@ -3,6 +3,7 @@ package com.hexaware.CodingChallenge.Test;
 
 
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doNothing;
 
@@ -40,7 +41,7 @@ class TaskTest {
     }
 
     @Test
-    void testAddDoctor_Success() throws Exception {
+    void testAddTask_Success() throws Exception {
         TaskDTO taskDTO = new TaskDTO();
         taskDTO.setTitle("Sample task");
         taskDTO.setDescription("Sample Description");
@@ -55,6 +56,24 @@ class TaskTest {
         assertEquals("Sample task", response.getBody().getTitle());
         assertEquals("Sample Description", response.getBody().getDescription());
         assertEquals(LocalDate.of(2024, 10, 11), response.getBody().getDueDate());
+    }
+
+    @Test
+    void testeditTask_Success() throws Exception {
+        TaskDTO taskDTO = new TaskDTO();
+        taskDTO.setTitle("Sample task");
+        taskDTO.setDescription("Sample Description");
+        taskDTO.setDueDate(LocalDate.of(2024, 11, 14));
+
+        when(service.updateTask(anyInt(),any(TaskDTO.class))).thenReturn(taskDTO);
+
+        ResponseEntity<TaskDTO> response = adminController.updateTask(1,taskDTO);
+
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("Sample task", response.getBody().getTitle());
+        assertEquals("Sample Description", response.getBody().getDescription());
+        assertEquals(LocalDate.of(2024, 11, 14), response.getBody().getDueDate());
     }
 
 

@@ -36,7 +36,7 @@ public class SecurityConfig {
 		return httpSecurity.csrf(csrf -> csrf.disable())
 				 .authorizeHttpRequests(auth -> auth
 			                .requestMatchers("/api/login").permitAll()
-			                .requestMatchers("/api/task/deleteTaskbyId","/api/addUser").hasRole("ADMIN")
+			                .requestMatchers("/api/task/deleteTaskbyId/**","/api/addUser").hasRole("ADMIN")
 			                .requestMatchers("/api/task/**").hasAnyRole("ADMIN","USER")
 			                .anyRequest().authenticated()
 			            )
