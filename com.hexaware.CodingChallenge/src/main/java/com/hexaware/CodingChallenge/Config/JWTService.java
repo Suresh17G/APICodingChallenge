@@ -23,6 +23,7 @@ public class JWTService {
 	
 	
 	public String generateToken(UserDetails userDetails) {
+		
 		String token= Jwts.builder()
 		.setSubject(userDetails.getUsername())
 		.setIssuedAt(Date.from(Instant.now()))
