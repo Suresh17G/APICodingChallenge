@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.hexaware.CodingChallenge.Config.JWTService;
 import com.hexaware.CodingChallenge.Config.UserInfoUserDetailsService;
+import com.hexaware.CodingChallenge.DTO.ResponseDTO;
 import com.hexaware.CodingChallenge.DTO.UsersDTO;
 import com.hexaware.CodingChallenge.Model.Users;
 import com.hexaware.CodingChallenge.Model.Users.Role;
@@ -48,12 +49,19 @@ public class AuthService {
 		}
 	}
 
-	public String authenticateUser(UsersDTO user) {
+	public ResponseDTO authenticateUser(UsersDTO user) {
 
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 		if (authentication.isAuthenticated()) {
-			return jwtService.generateToken(userService.loadUserByUsername(user.getUsername()));
+			ResponseDTO response=new ResponseDTO();
+			Users u=userRepo.findByUsername(user.getUsername()).orElse(null);
+			String jwt=jwtService.generateToken(userService.loadUserByUsername(user.getUsername()));
+			response.setJwt(jwt);
+			response.setUserid(u.getUserId());
+			response.setRole(u.getRole().name());
+			return response;
+			
 		} else {
 			throw new UsernameNotFoundException("Invalid Username and Password");
 		}

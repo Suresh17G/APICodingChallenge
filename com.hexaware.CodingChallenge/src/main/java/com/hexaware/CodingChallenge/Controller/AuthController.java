@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hexaware.CodingChallenge.DTO.ResponseDTO;
 import com.hexaware.CodingChallenge.DTO.UsersDTO;
 import com.hexaware.CodingChallenge.Exception.UserExistsException;
 import com.hexaware.CodingChallenge.Service.AuthService;
@@ -20,9 +21,9 @@ public class AuthController {
 	AuthService authService;
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody UsersDTO user) {
+	public ResponseEntity<ResponseDTO> login(@RequestBody UsersDTO user) {
 		
-		String login= authService.authenticateUser(user);
+		ResponseDTO login= authService.authenticateUser(user);
 		return new ResponseEntity<>(login,HttpStatus.ACCEPTED);
 	}
 	
